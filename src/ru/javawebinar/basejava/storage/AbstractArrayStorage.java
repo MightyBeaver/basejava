@@ -67,6 +67,7 @@ public abstract class AbstractArrayStorage implements Storage {
             return;
         }
         deleteResume(matchIndex);
+        storage[size - 1] = null;
         size--;
     }
 
