@@ -1,5 +1,8 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -28,8 +31,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int matchIndex = getIndex(uuid);
         if(matchIndex < 0) {
-            System.out.println("No such resume in storage");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[matchIndex];
     }
@@ -38,8 +40,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume r) {
         int matchIndex = getIndex(r.getUuid());
         if(matchIndex < 0) {
-            System.out.println("No such resume in storage");
-            return;
+            throw new NotExistStorageException(r.getUuid());
         }
         storage[matchIndex] = r;
     }
@@ -48,12 +49,10 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume r) {
         int matchIndex = getIndex(r.getUuid());
         if (matchIndex > 0) {
-            System.out.println("Resume already in storage");
-            return;
+            throw new ExistStorageException(r.getUuid());
         }
         if (size == storage.length) {
-            System.out.println("Storage at full capacity");
-            return;
+            throw new StorageException("Storage overflow", r.getUuid());
         }
         insertResume(r,matchIndex);
         size++;
@@ -63,8 +62,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int matchIndex = getIndex(uuid);
         if(matchIndex < 0) {
-            System.out.println("No such resume in storage");
-            return;
+            throw new NotExistStorageException(uuid);
         }
         deleteResume(matchIndex);
         storage[size - 1] = null;
