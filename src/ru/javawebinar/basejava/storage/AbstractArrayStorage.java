@@ -48,7 +48,7 @@ public abstract class AbstractArrayStorage implements Storage {
     @Override
     public void save(Resume r) {
         int matchIndex = getIndex(r.getUuid());
-        if (matchIndex > 0) {
+        if (matchIndex >= 0) {
             throw new ExistStorageException(r.getUuid());
         }
         if (size == storage.length) {
