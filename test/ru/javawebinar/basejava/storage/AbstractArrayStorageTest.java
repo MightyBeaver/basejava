@@ -62,9 +62,13 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveWhenFull() throws Exception {
-        for (int i = 3; i <= AbstractArrayStorage.STORAGE_LIMIT;i++){
-            storage.save(new Resume());
-        }
+       try {
+           for (int i = 3; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
+               storage.save(new Resume());
+           }
+       } catch (StorageException e) {
+           Assert.fail();
+       }
         storage.save(new Resume());
     }
 
