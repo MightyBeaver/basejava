@@ -20,7 +20,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void doUpdate(Object key, Resume r) {
-
+        storage.put(key.toString(),r);
     }
 
     @Override
