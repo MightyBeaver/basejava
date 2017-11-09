@@ -63,8 +63,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return (Integer) key >= 0;
     }
 
-    //protected abstract int getIndex(String uuid);
-
     protected abstract void insertResume(Resume r, int matchIndex);
 
     protected abstract void deleteResume(int matchIndex);

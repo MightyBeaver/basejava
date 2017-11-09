@@ -1,7 +1,7 @@
 package ru.javawebinar.basejava.storage;
 
 import org.junit.Test;
-import ru.javawebinar.basejava.exception.NotExistStorageException;
+import org.junit.Ignore;
 
 
 public class ListStorageTest extends AbstractStorageTest {
@@ -10,15 +10,7 @@ public class ListStorageTest extends AbstractStorageTest {
     }
 
     @Override
-    @Test(expected = NotExistStorageException.class)
-    public void delete() throws Exception {
-        storage.delete(testResumes[0].getUuid());
-        storage.get(testResumes[0].getUuid());
-    }
-
-    @Override
     @Test
-    public void saveWhenFull() throws Exception {
-        //never "full"
-    }
+    @Ignore
+    public void saveWhenFull(){}
 }

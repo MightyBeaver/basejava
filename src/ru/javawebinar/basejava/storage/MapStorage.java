@@ -14,7 +14,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getMatchKey(String uuid) {
+    protected String getMatchKey(String uuid) {
        return uuid;
     }
 
