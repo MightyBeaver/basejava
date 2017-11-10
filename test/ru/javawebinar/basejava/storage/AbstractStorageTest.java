@@ -7,6 +7,8 @@ import org.junit.Test;
 import ru.javawebinar.basejava.exception.*;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.List;
+
 
 public abstract class AbstractStorageTest {
 
@@ -17,7 +19,12 @@ public abstract class AbstractStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
     protected static final Resume[] testResumes = new Resume[]
-            {new Resume(UUID_1), new Resume(UUID_2), new Resume(UUID_3), new Resume(UUID_4)};
+            {
+                    new Resume(UUID_1, "John Smith"),
+                    new Resume(UUID_2, "William Blazkowicz"),
+                    new Resume(UUID_3, "Bill Evans"),
+                    new Resume(UUID_4, "Edsger Dijkstra")
+            };
 
    public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -64,12 +71,12 @@ public abstract class AbstractStorageTest {
     public void saveWhenFull() throws Exception {
        try {
            for (int i = 3; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-               storage.save(new Resume());
+               storage.save(new Resume("dummy"));
            }
        } catch (StorageException e) {
            Assert.fail();
        }
-        storage.save(new Resume());
+        storage.save(new Resume("dummy"));
     }
 
     @Test(expected = ExistStorageException.class)
@@ -101,12 +108,12 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() throws Exception {
-        Resume[] fromStorage = storage.getAll();
+    public void getAllSorted() throws Exception {
+        List<Resume> fromStorage = storage.getAllSorted();
         Assert.assertEquals(3, storage.size());
-        Assert.assertEquals(testResumes[0],fromStorage[0]);
-        Assert.assertEquals(testResumes[1],fromStorage[1]);
-        Assert.assertEquals(testResumes[2],fromStorage[2]);
+        Assert.assertEquals(testResumes[0],fromStorage.get(1));
+        Assert.assertEquals(testResumes[1],fromStorage.get(2));
+        Assert.assertEquals(testResumes[2],fromStorage.get(0));
     }
 
 

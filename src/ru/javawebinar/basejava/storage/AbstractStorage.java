@@ -4,6 +4,9 @@ import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.Collections;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
 
     @Override
@@ -42,11 +45,19 @@ public abstract class AbstractStorage implements Storage {
         doDelete(key);
     }
 
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> sortedResumes = getAllAsList();
+        Collections.sort(sortedResumes);
+        return  sortedResumes;
+    }
+
     protected abstract boolean isInStorage(Object key);
     protected abstract Object getMatchKey(String uuid);
     protected abstract void doUpdate(Object key, Resume r);
     protected abstract void doSave(Object key, Resume r);
     protected abstract Resume doGet(Object key);
     protected abstract void doDelete(Object key);
+    protected abstract List<Resume> getAllAsList();
 
 }
