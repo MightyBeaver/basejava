@@ -2,13 +2,11 @@ package ru.javawebinar.basejava.storage;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import ru.javawebinar.basejava.exception.*;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.List;
-
 
 public abstract class AbstractStorageTest {
 
@@ -65,18 +63,6 @@ public abstract class AbstractStorageTest {
         storage.save(testResumes[3]);
         Assert.assertEquals(4,storage.size());
         Assert.assertTrue(testResumes[3] == storage.get(testResumes[3].getUuid()));
-    }
-
-    @Test(expected = StorageException.class)
-    public void saveWhenFull() throws Exception {
-       try {
-           for (int i = 3; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-               storage.save(new Resume("dummy"));
-           }
-       } catch (StorageException e) {
-           Assert.fail();
-       }
-        storage.save(new Resume("dummy"));
     }
 
     @Test(expected = ExistStorageException.class)
