@@ -2,11 +2,11 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-public class UuidMapStorage extends AbstractMapStorage {
+public class UuidMapStorage extends AbstractMapStorage<String> {
 
     @Override
-    protected boolean isInStorage(Object uuid) {
-        return storage.containsKey(uuid.toString());
+    protected boolean isInStorage(String uuid) {
+        return storage.containsKey(uuid);
     }
     @Override
     protected String getMatchKey(String uuid) {
@@ -14,22 +14,22 @@ public class UuidMapStorage extends AbstractMapStorage {
     }
 
     @Override
-    protected void doUpdate(Object uuid, Resume r) {
-        storage.put(uuid.toString(),r);
+    protected void doUpdate(String uuid, Resume r) {
+        storage.put(uuid,r);
     }
 
     @Override
-    protected void doSave(Object uuid, Resume r) {
-        storage.put(uuid.toString(),r);
+    protected void doSave(String uuid, Resume r) {
+        storage.put(uuid,r);
     }
 
     @Override
-    protected Resume doGet(Object uuid) {
-        return storage.get(uuid.toString());
+    protected Resume doGet(String uuid) {
+        return storage.get(uuid);
     }
 
     @Override
-    protected void doDelete(Object uuid) {
-        storage.remove(uuid.toString());
+    protected void doDelete(String uuid) {
+        storage.remove(uuid);
     }
 }

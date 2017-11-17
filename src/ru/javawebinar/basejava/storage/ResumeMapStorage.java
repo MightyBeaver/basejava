@@ -2,10 +2,10 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-public class ResumeMapStorage extends AbstractMapStorage {
+public class ResumeMapStorage extends AbstractMapStorage<Resume> {
 
     @Override
-    protected boolean isInStorage(Object resume) {
+    protected boolean isInStorage(Resume resume) {
         return resume!= null;
     }
 
@@ -15,23 +15,23 @@ public class ResumeMapStorage extends AbstractMapStorage {
     }
 
     @Override
-    protected void doUpdate(Object resume, Resume r) {
+    protected void doUpdate(Resume resume, Resume r) {
         storage.put(r.getUuid(),r);
     }
 
     @Override
-    protected void doSave(Object resume, Resume r) {
+    protected void doSave(Resume resume, Resume r) {
         storage.put(r.getUuid(),r);
     }
 
     @Override
-    protected Resume doGet(Object resume) {
-        return (Resume)resume;
+    protected Resume doGet(Resume resume) {
+        return resume;
     }
 
     @Override
-    protected void doDelete(Object resume) {
-        storage.remove(((Resume)resume).getUuid());
+    protected void doDelete(Resume resume) {
+        storage.remove(resume.getUuid());
     }
 
 }
