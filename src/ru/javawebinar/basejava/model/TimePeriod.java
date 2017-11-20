@@ -59,7 +59,7 @@ public class TimePeriod {
     @Override
     public String toString() {
         return "TimePeriod{" +
-                "organization=" + organizationLink.getName() +
+                "organization=" + organizationLink.getValue() +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", description='" + description + '\'' +

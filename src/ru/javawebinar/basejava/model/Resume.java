@@ -43,6 +43,17 @@ public class Resume implements Comparable<Resume>{
         return  sections.get(sectionType);
     }
 
+    public void addContact(Contacts contact, String value, String url) {
+        Objects.requireNonNull(contact,"Contact type must not be null");
+        contacts.put(contact,new Link(value,url));
+    }
+
+    public void addSection(SectionType sectionType, Section section) {
+        Objects.requireNonNull(sectionType,"Section type must not be null");
+        Objects.requireNonNull(section,"Section must not be null");
+        sections.put(sectionType,section);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

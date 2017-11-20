@@ -4,17 +4,17 @@ import java.util.Objects;
 
 public class Link {
 
-    private final String name;
+    private final String value;
     private final String url;
 
-    public Link(String name, String url) {
-        Objects.requireNonNull(name,"Link name must be not null");
-        this.name = name;
+    public Link(String value, String url) {
+        Objects.requireNonNull(value,"Link value must be not null");
+        this.value = value;
         this.url = url;
     }
 
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 
     public String getUrl() {
@@ -28,20 +28,20 @@ public class Link {
 
         Link link = (Link) o;
 
-        return name.equals(link.name) && (url != null ? url.equals(link.url) : link.url == null);
+        return value.equals(link.value) && (url != null ? url.equals(link.url) : link.url == null);
     }
 
     @Override
     public String toString() {
         return "Link{" +
-                "name='" + name + '\'' +
+                "value='" + value + '\'' +
                 ", url='" + url + '\'' +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
+        int result = value.hashCode();
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
     }
