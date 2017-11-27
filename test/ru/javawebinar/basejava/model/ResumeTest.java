@@ -5,7 +5,9 @@ import org.junit.*;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ResumeTest {
     @Test
@@ -30,31 +32,39 @@ public class ResumeTest {
         qualificationsList.add("Version control: Subversion, Git, Mercury, ClearCase, Perforce");
         ListSection qualifications = new ListSection(qualificationsList);
 
-        List<TimePeriod> experienceList = new ArrayList<>();
-        experienceList.add(new TimePeriod("Java Online Projects", "http://javaops.ru/",
-                LocalDate.of(2013, Month.OCTOBER,1), null, "Автор проекта.\n" +
-                "Создание, организация и проведение Java онлайн проектов и стажировок."));
-        experienceList.add(new TimePeriod("RIT Center", null,
-                LocalDate.of(2012, Month.APRIL,1), LocalDate.of(2014, Month.OCTOBER,
-                1), "Java архитектор\n" +
-                "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование," +
-                " ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx)," +
-                " AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2," +
-                " 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN" +
-                " для online редактирование из браузера документов MS Office. Maven + plugin development, Ant," +
-                " Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, " +
-                "Unix shell remote scripting via ssh tunnels, PL/Python"));
-        TimePeriodsSection experience = new TimePeriodsSection(experienceList);
+        List<Organization> experienceList = new ArrayList<>();
+        Map<TimePeriod,String> javaOpsPeriodMap = new HashMap<>();
+        javaOpsPeriodMap.put(new TimePeriod(LocalDate.of(2013, Month.OCTOBER,1), null),
+                "Автор проекта.\n" +
+                        "Создание, организация и проведение Java онлайн проектов и стажировок.");
+        experienceList.add(new Organization("Java Online Projects", "http://javaops.ru/",
+                javaOpsPeriodMap));
 
-        List<TimePeriod> educationList = new ArrayList<>();
-        educationList.add(new TimePeriod("Coursera", "https://www.coursera.org/learn/progfun1",
-                LocalDate.of(2013, Month.MARCH,1), LocalDate.of(2013, Month.MAY,1),
-                "\"Functional Programming Principles in Scala\" by Martin Odersky"));
-        educationList.add(new TimePeriod("Luxsoft", "http://www.luxoft-training.ru/kurs/obektno-" +
-                "orientirovannyy__analiz_is_kontseptualnoe_modelirovanie_na_uml_dlya_sistemnyh_analitikov_.html",
-                LocalDate.of(2011, Month.MARCH,1), LocalDate.of(2011, Month.APRIL,1),
-                "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""));
-        TimePeriodsSection education = new TimePeriodsSection(educationList);
+        Map<TimePeriod,String> ritCenterPeriodMap = new HashMap<>();
+        ritCenterPeriodMap.put(new TimePeriod(LocalDate.of(2012, Month.APRIL,1),
+                LocalDate.of(2014, Month.OCTOBER, 1)),
+                "Java архитектор\n" +
+                        "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование," +
+                        " ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx)," +
+                        " AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2," +
+                        " 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN" +
+                        " для online редактирование из браузера документов MS Office. Maven + plugin development, Ant," +
+                        " Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, " +
+                        "Unix shell remote scripting via ssh tunnels, PL/Python");
+        experienceList.add(new Organization("RIT Center", null, ritCenterPeriodMap));
+        OrganizationsSection experience = new OrganizationsSection(experienceList);
+
+        List<Organization> educationList = new ArrayList<>();
+        Map<TimePeriod,String> itmoPeriodMap = new HashMap<>();
+        itmoPeriodMap.put(new TimePeriod(LocalDate.of(1993,Month.SEPTEMBER,1),
+                LocalDate.of(1996,Month.JULY,1)),
+                "Аспирантура (программист С, С++)");
+        itmoPeriodMap.put(new TimePeriod(LocalDate.of(1987,Month.SEPTEMBER,1),
+                LocalDate.of(1993,Month.JULY,1)),
+                "Инженер (программист Fortran, C)");
+        educationList.add(new Organization("Санкт-Петербургский национальный исследовательский университет " +
+                "информационных технологий, механики и оптики", "http://www.ifmo.ru/", itmoPeriodMap));
+        OrganizationsSection education = new OrganizationsSection(educationList);
 
         Resume resume = new Resume("1", "Григорий Кислин");
         resume.addContact(Contacts.MOBILE_PHONE,"+7(921) 855-0482",null);
