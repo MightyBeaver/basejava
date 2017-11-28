@@ -11,9 +11,9 @@ public class FileMain {
     public static void main(String[] args) {
         FileMain fm = new FileMain();
         try {
-            //fm.listFiles(".");                            //~223 ms
-            //fm.listFilesStream(".");                   //~252 ms
-            fm.listFilesWithVisitor(Paths.get("."));   //~154 ms
+            //fm.listFiles(".");
+            //fm.listFilesStream(".");
+            fm.listFilesWithVisitor(Paths.get("."));
         }
         catch (IOException ioe){
             ioe.printStackTrace();
@@ -27,7 +27,7 @@ public class FileMain {
         }
         for(File file: currentDirFiles){
             if(file.isFile()) {
-                System.out.println(file.getCanonicalPath());
+                System.out.println(file.getName());
             }
             if(file.isDirectory()){
                 listFiles(file.getCanonicalPath());
@@ -40,7 +40,7 @@ public class FileMain {
             @Override
             public FileVisitResult visitFile(Path visitedFile,BasicFileAttributes fileAttributes)
                     throws IOException {
-                System.out.println(visitedFile.toFile().getCanonicalPath());
+                System.out.println(visitedFile.getFileName());
                 return FileVisitResult.CONTINUE;
             }
         });
@@ -50,17 +50,8 @@ public class FileMain {
         try (Stream<Path> paths = Files.walk(Paths.get(path))) {
             paths
                     .filter(Files::isRegularFile)
-                    .map(this::convertToCanonicalPath)
+                    .map(Path::getFileName)
                     .forEach(System.out::println);
         }
-    }
-
-    private String convertToCanonicalPath(Path path){
-        try {
-            return path.toFile().getCanonicalPath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 }
