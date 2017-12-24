@@ -1,9 +1,11 @@
 package ru.javawebinar.basejava.model;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
 
-public class Organization {
+public class Organization implements Serializable{
+    private static final long serialVersionUID = 1L;
     private final Link organizationLink;
     private final Map<TimePeriod,String> timePeriods;
 

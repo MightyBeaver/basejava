@@ -7,6 +7,7 @@ import org.junit.Test;
 import ru.javawebinar.basejava.exception.*;
 import ru.javawebinar.basejava.model.*;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractStorageTest {
-
+    protected static final File STORAGE_DIR = new File("C:\\projects\\basejava\\storage");
     protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
@@ -120,7 +121,7 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() throws Exception {
         storage.update(testResumes[1]);
-        Assert.assertTrue(testResumes[1] == storage.get(testResumes[1].getUuid()));
+        Assert.assertTrue(testResumes[1].equals(storage.get(testResumes[1].getUuid())));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -132,7 +133,7 @@ public abstract class AbstractStorageTest {
     public void save() throws Exception {
         storage.save(testResumes[3]);
         Assert.assertEquals(4,storage.size());
-        Assert.assertTrue(testResumes[3] == storage.get(testResumes[3].getUuid()));
+        Assert.assertTrue(testResumes[3].equals(storage.get(testResumes[3].getUuid())));
     }
 
     @Test(expected = ExistStorageException.class)
@@ -155,7 +156,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() throws Exception {
-        Assert.assertTrue(testResumes[1] == storage.get(testResumes[1].getUuid()));
+        Assert.assertTrue(testResumes[1].equals(storage.get(testResumes[1].getUuid())));
     }
 
     @Test(expected = NotExistStorageException.class)
