@@ -12,11 +12,13 @@ import java.util.Objects;
  * gkislin
  * 22.07.2016
  */
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
     private File directory;
+    private final ResumeSerializer resumeSerializer;
 
-    protected AbstractFileStorage(File directory) {
+    protected FileStorage(File directory, ResumeSerializer resumeSerializer) {
         Objects.requireNonNull(directory, "directory must not be null");
+        Objects.requireNonNull(resumeSerializer, "resumeSerializer must not be null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
@@ -24,6 +26,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not readable/writable");
         }
         this.directory = directory;
+        this.resumeSerializer = resumeSerializer;
     }
 
     @Override
@@ -55,7 +58,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doUpdate(File file, Resume r) {
         try {
-            doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
+            resumeSerializer.doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException ioe) {
             throw new StorageException("File write error", r.getUuid(), ioe);
         }
@@ -78,7 +81,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected Resume doGet(File file) {
         try {
-            return doRead(new BufferedInputStream(new FileInputStream(file)));
+            return resumeSerializer.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException ioe) {
             throw new StorageException("Error when reading file ",file.getName(),ioe);
         }
@@ -103,8 +106,4 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
         return list;
     }
-
-    protected abstract void doWrite(Resume r, OutputStream os) throws IOException;
-    protected abstract Resume doRead(InputStream is) throws IOException;
-
 }
