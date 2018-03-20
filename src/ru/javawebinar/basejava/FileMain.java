@@ -11,26 +11,24 @@ public class FileMain {
     public static void main(String[] args) {
         FileMain fm = new FileMain();
         try {
-            //fm.listFiles(".");
+            fm.listDirectories(".", "");
             //fm.listFilesStream(".");
-            fm.listFilesWithVisitor(Paths.get("."));
+            //fm.listFilesWithVisitor(Paths.get("."));
         }
         catch (IOException ioe){
             ioe.printStackTrace();
         }
     }
 
-    private void listFiles(String dir) throws IOException {
+    private void listDirectories(String dir, String offset) throws IOException {
         File[] currentDirFiles = new File(dir).listFiles();
         if (currentDirFiles == null) {
             throw new IOException("Error when reading directory");
         }
         for(File file: currentDirFiles){
-            if(file.isFile()) {
-                System.out.println(file.getName());
-            }
             if(file.isDirectory()){
-                listFiles(file.getCanonicalPath());
+                System.out.println(offset + file.getName());
+                listDirectories(file.getCanonicalPath(), offset + "\t");
             }
         }
     }

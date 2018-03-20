@@ -14,11 +14,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ObjectStreamPathStorage extends AbstractStorage<Path> {
+public class PathStorage extends AbstractStorage<Path> {
     private final Path path;
     private final ResumeSerializer resumeSerializer;
 
-    public ObjectStreamPathStorage(String path, ResumeSerializer resumeSerializer) {
+    public PathStorage(String path, ResumeSerializer resumeSerializer) {
         Objects.requireNonNull(path, "Path must not be null");
         Objects.requireNonNull(resumeSerializer, "resumeSerializer must not be null");
         this.path = Paths.get(path);
@@ -30,7 +30,7 @@ public class ObjectStreamPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected boolean isInStorage(Path key) {
-        return Files.exists(key) && !Files.isDirectory(key);
+        return Files.isRegularFile(key);
     }
 
     @Override
