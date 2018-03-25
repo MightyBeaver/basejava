@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import ru.javawebinar.basejava.exception.*;
 import ru.javawebinar.basejava.model.*;
+import ru.javawebinar.basejava.util.DateUtil;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -58,16 +59,15 @@ public abstract class AbstractStorageTest {
         ListSection qualifications = new ListSection(qualificationsList);
 
         List<Organization> experienceList = new ArrayList<>();
-        Map<TimePeriod,String> javaOpsPeriodMap = new HashMap<>();
-        javaOpsPeriodMap.put(new TimePeriod(LocalDate.of(2013, Month.OCTOBER,1), null),
+        List<Organization.Position> javaOpsPeriodList = new ArrayList<>();
+        javaOpsPeriodList.add(new Organization.Position(LocalDate.of(2013, Month.OCTOBER,1), DateUtil.NOW,
                 "Автор проекта.\n" +
-                        "Создание, организация и проведение Java онлайн проектов и стажировок.");
-        experienceList.add(new Organization("Java Online Projects", "http://javaops.ru/",
-                javaOpsPeriodMap));
+                        "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        experienceList.add(new Organization(new Link("Java online projects" , "http://javaops.ru/"), javaOpsPeriodList));
 
-        Map<TimePeriod,String> ritCenterPeriodMap = new HashMap<>();
-        ritCenterPeriodMap.put(new TimePeriod(LocalDate.of(2012, Month.APRIL,1),
-                        LocalDate.of(2014, Month.OCTOBER, 1)),
+        List<Organization.Position> ritPositionList = new ArrayList<>();
+        ritPositionList.add(new Organization.Position(LocalDate.of(2012, Month.APRIL,1),
+                        LocalDate.of(2014, Month.OCTOBER, 1),
                 "Java архитектор\n" +
                         "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование," +
                         " ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx)," +
@@ -75,20 +75,20 @@ public abstract class AbstractStorageTest {
                         " 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN" +
                         " для online редактирование из браузера документов MS Office. Maven + plugin development, Ant," +
                         " Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, " +
-                        "Unix shell remote scripting via ssh tunnels, PL/Python");
-        experienceList.add(new Organization("RIT Center", null, ritCenterPeriodMap));
+                        "Unix shell remote scripting via ssh tunnels, PL/Python"));
+        experienceList.add(new Organization(new Link("RIT Center", null), ritPositionList));
         OrganizationsSection experience = new OrganizationsSection(experienceList);
 
         List<Organization> educationList = new ArrayList<>();
-        Map<TimePeriod,String> itmoPeriodMap = new HashMap<>();
-        itmoPeriodMap.put(new TimePeriod(LocalDate.of(1993,Month.SEPTEMBER,1),
-                        LocalDate.of(1996,Month.JULY,1)),
-                "Аспирантура (программист С, С++)");
-        itmoPeriodMap.put(new TimePeriod(LocalDate.of(1987,Month.SEPTEMBER,1),
-                        LocalDate.of(1993,Month.JULY,1)),
-                "Инженер (программист Fortran, C)");
-        educationList.add(new Organization("Санкт-Петербургский национальный исследовательский университет " +
-                "информационных технологий, механики и оптики", "http://www.ifmo.ru/", itmoPeriodMap));
+        List<Organization.Position> itmoPositionList = new ArrayList<>();
+        itmoPositionList.add(new Organization.Position(LocalDate.of(1993,Month.SEPTEMBER,1),
+                        LocalDate.of(1996,Month.JULY,1),
+                "Аспирантура (программист С, С++)"));
+        itmoPositionList.add(new Organization.Position(LocalDate.of(1987,Month.SEPTEMBER,1),
+                        LocalDate.of(1993,Month.JULY,1),
+                "Инженер (программист Fortran, C)"));
+        educationList.add(new Organization(new Link("Санкт-Петербургский национальный исследовательский университет " +
+                "информационных технологий, механики и оптики", "http://www.ifmo.ru/"), itmoPositionList));
         OrganizationsSection education = new OrganizationsSection(educationList);
         testResumes[1].addContact(Contacts.MOBILE_PHONE,"+7(921) 855-0482",null);
         testResumes[1].addContact(Contacts.GITHUB,"gkislin","https://github.com/gkislin");
