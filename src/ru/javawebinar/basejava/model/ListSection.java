@@ -5,7 +5,10 @@ import java.util.Objects;
 
 public class ListSection extends Section {
     private static final long serialVersionUID = 1L;
-    private final List<String> paragraphs;
+    private List<String> paragraphs;
+
+    public ListSection() {
+    }
 
     public ListSection(List<String> paragraphs) {
         Objects.requireNonNull(paragraphs,"Paragraphs must not be null");

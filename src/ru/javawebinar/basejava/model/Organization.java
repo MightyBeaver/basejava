@@ -1,13 +1,19 @@
 package ru.javawebinar.basejava.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable{
     private static final long serialVersionUID = 1L;
-    private final Link organizationLink;
-    private final Map<TimePeriod,String> timePeriods;
+    private Link organizationLink;
+    private Map<TimePeriod,String> timePeriods;
+
+    public Organization() {
+    }
 
     public Organization(String orgName, String url, Map<TimePeriod,String> timePeriods) {
         Objects.requireNonNull(timePeriods,"Time periods must not be null");
