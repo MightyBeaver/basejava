@@ -8,20 +8,20 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Link implements Serializable{
     private static final long serialVersionUID = 1L;
-    private String value;
+    private String name;
     private String url;
 
     public Link() {
     }
 
-    public Link(String value, String url) {
-        Objects.requireNonNull(value,"Link value must be not null");
-        this.value = value;
-        this.url = url;
+    public Link(String name, String url) {
+        Objects.requireNonNull(name,"Link name must be not null");
+        this.name = name;
+        this.url = url != null ? url : "";
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 
     public String getUrl() {
@@ -35,21 +35,21 @@ public class Link implements Serializable{
 
         Link link = (Link) o;
 
-        if (!value.equals(link.value)) return false;
+        if (!name.equals(link.name)) return false;
         return url != null ? url.equals(link.url) : link.url == null;
     }
 
     @Override
     public String toString() {
         return "Link{" +
-                "value='" + value + '\'' +
+                "name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        int result = value.hashCode();
+        int result = name.hashCode();
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
     }
