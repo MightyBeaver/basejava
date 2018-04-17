@@ -91,14 +91,14 @@ public abstract class AbstractStorageTest {
         educationList.add(new Organization(new Link("Санкт-Петербургский национальный исследовательский университет " +
                 "информационных технологий, механики и оптики", "http://www.ifmo.ru/"), itmoPositionList));
         OrganizationsSection education = new OrganizationsSection(educationList);
-        testResumes[1].addContact(Contacts.MOBILE_PHONE,"+7(921) 855-0482",null);
+        /*testResumes[1].addContact(Contacts.MOBILE_PHONE,"+7(921) 855-0482",null);
         testResumes[1].addContact(Contacts.GITHUB,"gkislin","https://github.com/gkislin");
         testResumes[1].addSection(SectionType.OBJECTIVE, objective);
         testResumes[1].addSection(SectionType.PERSONAL, personal);
         testResumes[1].addSection(SectionType.ACHIEVEMENTS, achievments);
         testResumes[1].addSection(SectionType.EXPERIENCE, experience);
         testResumes[1].addSection(SectionType.QUALIFICATIONS, qualifications);
-        testResumes[1].addSection(SectionType.EDUCATION, education);
+        testResumes[1].addSection(SectionType.EDUCATION, education);*/
     }
     @Before
     public void setUp() throws Exception {
